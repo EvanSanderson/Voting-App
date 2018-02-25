@@ -15,14 +15,20 @@ export default class App extends Component {
     console.log(id);
     const fruits = this.state.fruits;
     fruits[id].votes += 1;
-    this.setState({
-      fruits: fruits
-    })
+    // this.setState({
+    //   fruits: fruits
+    // })
+    axios.post(`http://localhost/api.php?fruit=${id}&?votes=${fruits[id].votes}`).then((res) => {
+      this.getData();
+    });
   }
   renderFruits = (key) => {
       return <Fruit key={key} id={key} name={this.state.fruits[key].name} votes={this.state.fruits[key].votes} updateVote={this.updateVote} />
   }
   componentDidMount() {
+    this.getData();
+  }
+  getData() {    
     axios.get('http://localhost/api.php').then((res)=> {
       console.log(res.data);
       this.setState({
