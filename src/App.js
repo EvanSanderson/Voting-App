@@ -12,14 +12,17 @@ export default class App extends Component {
     }
   }
   updateVote = (id) => {
-    console.log(id);
     const fruits = this.state.fruits;
     fruits[id].votes += 1;
-    // this.setState({
-    //   fruits: fruits
-    // })
-    axios.post(`http://localhost/api.php?fruit=${id}&?votes=${fruits[id].votes}`).then((res) => {
-      this.getData();
+    var params = new URLSearchParams();
+    params.append('fruit', id);
+    params.append('votes', fruits[id].votes);
+    axios.post(`http://localhost/api.php`, params
+    ).then((res) => {
+      console.log(res.data)
+      this.setState({
+        fruits: fruits
+      })
     });
   }
   renderFruits = (key) => {

@@ -1,10 +1,25 @@
 <?php 
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
+require('env.php');
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Max-Age: 86400');    // cache for 1 day
+}
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");         
+
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+        header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+
+}
 
 $servername = "localhost";
-$username = "root";
-$password = "root";
+// these need to be set for whatever local DB you are using
+$username = $_ENV['db_user'];
+$password = $_ENV['db_password'];
+
 $db = "votingapp";
 $votes = array();
 // Create connection
@@ -15,9 +30,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['fruit']) && isset($_POST['votes'])){
-    $sql = "UPDATE Fruits SET votes=".(int)$votes." WHERE name='".$fruit . "'";
-    $conn->query($sql);
+if( $_SERVER['REQUEST_METHOD'] === 'POST'){
+    $new_votes = htmlspecialchars($_POST['votes']);
+    $fruit = htmlspecialchars($_POST['fruit']);
+    $sql = "UPDATE Fruits SET votes=".(int)$new_votes." WHERE name='".$fruit . "'";
+    if($conn->query($sql) === TRUE){
+        echo 'success';
+    } else {
+        echo $conn->error;
+    };
 } elseif( $_SERVER['REQUEST_METHOD'] === 'GET'){
     $sql = "SELECT votes, name FROM Fruits";
     $results = $conn->query($sql);
@@ -28,8 +49,6 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['fruit']) && isset($_P
                 'votes'=> (int)$row['votes']
             );
         }
-    } else {
-        "No results found.";
     }
     $json = json_encode($votes);
     echo $json;
