@@ -1,0 +1,134 @@
+
+
+@mixin grad($top,$bottom) {
+    background: $bottom; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($top, $bottom); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($top, $bottom); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($top, $bottom); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($top, $bottom); /* Standard syntax */
+}
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@mixin transform($transform) {
+	-webkit-transform: $transform;  /* Saf3.1+, Chrome */
+	     -moz-transform: $transform;  /* FF3.5+ */
+	      -ms-transform: $transform;  /* IE9 */
+	       -o-transform: $transform;  /* Opera 10.5+ */
+	          transform: $transform;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  p,h1,h2,h3,h4,h5,h6{
+    font-family: 'Montserrat', sans-serif;
+  }
+  .App {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    height: 100vh;
+    &:after {
+        content: '';
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: -1;
+        @include grad(rgba(0,91,150,.8), transparent);
+    }
+    h1, h3 { 
+        text-align: center;
+        color: darkslategray;
+    }
+  }
+}
+.votes-container {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: space-around;
+  .fruit {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30%;
+    width: 48%;
+    margin: 1rem;
+    border: 1px solid darkslategray;
+    box-shadow: 0px 4px 4px rgba(0,0,0,.5);
+    @include transition(all .2s ease);
+    &:hover {
+        transform: scale(1.1);
+    }
+    h1 {
+     color: #fff;
+    }
+    p {
+     color: #fff;
+    }
+    div {
+     border-radius: 4px;
+     padding: .5rem 1rem;
+     border:2px solid #fff;
+     color: #fff;
+     font-weight: bold;
+     text-transform: capitalize;
+        @include transition(all .2s ease);
+     &:hover {
+         cursor: pointer;
+         background: #fff;
+     }
+    }
+  }
+}
+
+
+#Apples {
+  background: darkred;
+  div {
+      &:hover {
+        color: darkred;
+      }
+  }
+}
+
+#Bananas {
+  background: darkgoldenrod;
+    div {
+      &:hover {
+        color: darkgoldenrod;
+      }
+  }
+}
+
+#Pineapples{
+  background: darkgreen;
+      div {
+      &:hover {
+        color: darkgreen;
+      }
+  }
+}
+
+#Oranges {
+  background: darkorange;
+        div {
+      &:hover {
+        color: darkorange;
+      }
+  }
+}
+

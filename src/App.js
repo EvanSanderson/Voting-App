@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Fruit from './components/Fruit';
 // import VotesModel from './models/votes';
-import './App.css';
 
 export default class App extends Component {
   constructor(){
@@ -19,7 +18,6 @@ export default class App extends Component {
     params.append('votes', fruits[id].votes);
     axios.post(`http://localhost/api.php`, params
     ).then((res) => {
-      console.log(res.data)
       this.setState({
         fruits: fruits
       })
@@ -47,6 +45,7 @@ export default class App extends Component {
         <div className="votes-container">
         {Object.keys(this.state.fruits).map(this.renderFruits)}
         </div>
+        <h3> You snack, we track! </h3>
       </div>
     );
   }
