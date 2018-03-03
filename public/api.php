@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 }
 
-$servername = "localhost";
+$servername = "us-cdbr-iron-east-05.cleardb.net";
 // these need to be set for whatever local DB you are using
-$username = $_ENV['db_user'];
-$password = $_ENV['db_password'];
+$username = 'ba2cffe56ce85c';
+$password = '9f0a84ee';
 
-$db = "votingapp";
+$db = "heroku_efdf0af18d6ca3c";
 $votes = array();
 // Create connection
 $conn = new mysqli($servername, $username, $password, $db);
