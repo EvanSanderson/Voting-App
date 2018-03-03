@@ -16,7 +16,7 @@ export default class App extends Component {
     var params = new URLSearchParams();
     params.append('fruit', id);
     params.append('votes', fruits[id].votes);
-    axios.post(`http://localhost/api.php`, params
+    axios.post(`https://voting-app-evan-sanderson.herokuapp.com/api.php`, params
     ).then((res) => {
       this.setState({
         fruits: fruits
@@ -30,7 +30,7 @@ export default class App extends Component {
     this.getData();
   }
   getData() {    
-    axios.get('http://localhost/api.php').then((res)=> {
+    axios.get('https://voting-app-evan-sanderson.herokuapp.com/api.php').then((res)=> {
       console.log(res.data);
       this.setState({
         fruits: res.data
