@@ -82,7 +82,9 @@ body {
   display: flex;
   width: 90%;
   margin: 0 auto;
-  flex-wrap: wrap;
+  @include breakpoint(mobile){
+      flex-wrap: wrap;
+  }
   justify-content: space-around;
   .fruit {
     padding: 1rem;
