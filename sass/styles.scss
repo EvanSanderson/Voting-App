@@ -37,6 +37,9 @@ body {
     position: relative;
     justify-content: center;
     height: 100vh;
+    background: url(assets/campus.jpg) no-repeat center center;
+    background-repeat: no-repeat;
+    background-size: cover;
     &:after {
         content: '';
         top: 0px;
