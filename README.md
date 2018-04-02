@@ -1,4 +1,3 @@
-### Code Challenge for Symplicity
 
 How I Would Do Users: 
 
